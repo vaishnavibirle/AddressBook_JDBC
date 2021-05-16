@@ -1,5 +1,6 @@
 package com.company;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -65,5 +66,10 @@ public class AddressBookService {
         if (ioService.equals(IOService.DB_IO))
             return addressBookDBService.getCountContactsByCityOrState(city);
         return null;
+    }
+
+    public void addContactToAddressBook(int id, String fname, String lname, Date date,
+                                        String addressType, String address, String City, String State, long zip, String mobileNum, String email) throws AddressBookException {
+        addressBookList.add(addressBookDBService.addNewContactToAddressBook(id,fname,lname,date,addressType,address,City,State,zip,mobileNum,email));
     }
 }

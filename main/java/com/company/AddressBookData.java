@@ -1,5 +1,7 @@
 package com.company;
 
+import java.sql.Date;
+
 public class AddressBookData {
     public String city;
     public String state;
@@ -12,7 +14,7 @@ public class AddressBookData {
     private long zipCode;
     private String addressType;
 
-    public AddressBookData(int id, String firstName, String lastName, String addressType, String address, String city,
+    public AddressBookData(int id, String firstName, String lastName, Date date, String addressType, String address, String city,
                            String state, long zipCode, String mobileNum, String emailId) {
         this.id = id;
         this.firstName = firstName;

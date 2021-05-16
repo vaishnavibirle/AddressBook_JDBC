@@ -51,7 +51,8 @@ public class AddressBookDBService {
                 long zipCode = resultSet.getLong("ZipCode");
                 String mobileNumber = resultSet.getString("MobileNumber");
                 String emailId = resultSet.getString("EmailId");
-                addressBookList.add(new AddressBookData(id, firstName, lastName, addressType, address, city, state,
+                Date date = null;
+                addressBookList.add(new AddressBookData(id, firstName, lastName, date, addressType, address, city, state,
                         zipCode, mobileNumber, emailId));
             }
         } catch (SQLException e) {
@@ -118,6 +119,25 @@ public class AddressBookDBService {
             throw new AddressBookException("SQL Exception", AddressBookException.ExceptionType.DATABASE_EXCEPTION);
         }
         return contactsCount;
+    }
+
+    public AddressBookData addNewContactToAddressBook(int id, String fname, String lname, Date date,
+                                                      String addressType, String address, String city, String state, long zip, String mobileNum, String email)
+            throws AddressBookException {
+        AddressBookData addressBookData = null;
+        String sql = String.format("INSERT INTO addressBook(Id,FirstName,LastName,Date_added,AddressType,Address,City,State,Zipcode,MobileNumber,EmailId)"
+                        + " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+                id, fname, lname, date, addressType, address, city, state, zip, mobileNum, email);
+        try (Connection connection = AddressBookConnection.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            int result = preparedStatement.executeUpdate();
+            if (result == 1)
+                addressBookData = new AddressBookData(id, fname, lname, date, addressType, address, city, state, zip,
+                        mobileNum, email);
+        } catch (SQLException e) {
+            throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
+        }
+        return addressBookData;
     }
 
 }

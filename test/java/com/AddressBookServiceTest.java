@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -59,5 +60,14 @@ public class AddressBookServiceTest {
         Assertions.assertEquals(1, count.get("Ponnur"), 0);
         Assertions.assertEquals(1, count.get("Mysore"), 0);
         Assertions.assertEquals(1, count.get("Hyderabad"), 0);
+    }
+
+    @Test
+    public void givenNewEmployee_WhenAdded_ShouldSyncWithDB() throws AddressBookException {
+        addressBookService.readAddressBookData(AddressBookService.IOService.DB_IO);
+        addressBookService.addContactToAddressBook(4, "Anudeep", "Betha", Date.valueOf("2020-05-12"), "Office",
+                "Electronic City", "Bangalore", "Karnataka", 536429, "8796589899", "deepu123@gmail.com");
+        boolean result = addressBookService.checkAddressBookInSyncWithDB("Anudeep");
+        Assertions.assertTrue(result);
     }
 }
