@@ -1,6 +1,7 @@
 package com.company;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +94,13 @@ public class AddressBookDBService {
         } catch (SQLException e) {
             throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
         }
+    }
+
+    public List<AddressBookData> getContactForDateRange(LocalDate startDate, LocalDate endDate)
+            throws AddressBookException {
+        String sql = String.format("SELECT * FROM addressBook WHERE Date_added BETWEEN '%s' AND '%s';",
+                Date.valueOf(startDate), Date.valueOf(endDate));
+        return this.getAddressBookDataUsingDB(sql);
     }
 
 }
