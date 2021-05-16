@@ -3,18 +3,19 @@ package com.company;
 import java.sql.Date;
 
 public class AddressBookData {
-    public String city;
-    public String state;
-    public String firstName;
     private int id;
+    public String firstName;
     private String lastName;
     private String emailId;
     private String address;
+    public String city;
+    public String state;
     private String mobileNum;
     private long zipCode;
     private String addressType;
+    private Date date;
 
-    public AddressBookData(int id, String firstName, String lastName, Date date, String addressType, String address, String city,
+    public AddressBookData(int id, String firstName, String lastName, String addressType, String address, String city,
                            String state, long zipCode, String mobileNum, String emailId) {
         this.id = id;
         this.firstName = firstName;
@@ -26,6 +27,20 @@ public class AddressBookData {
         this.zipCode = zipCode;
         this.mobileNum = mobileNum;
         this.emailId = emailId;
+    }
+
+    public AddressBookData(int id, String firstName, String lastName, Date date, String addressType,
+                           String address, String city, String state, long zipCode, String mobileNum, String emailId) {
+        this(id, firstName, lastName, addressType, address, city, state, zipCode, mobileNum, emailId);
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getId() {
