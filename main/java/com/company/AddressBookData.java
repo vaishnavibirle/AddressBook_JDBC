@@ -1,13 +1,13 @@
 package com.company;
 
 public class AddressBookData {
+    public String city;
+    public String state;
+    public String firstName;
     private int id;
-    private String firstName;
     private String lastName;
     private String emailId;
     private String address;
-    private String city;
-    private String state;
     private String mobileNum;
     private long zipCode;
     private String addressType;

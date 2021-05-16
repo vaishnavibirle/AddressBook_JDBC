@@ -23,4 +23,11 @@ public class AddressBookServiceTest {
         List<AddressBookData> addressBookData = addressBookService.readAddressBookData(AddressBookService.IOService.DB_IO);
         Assertions.assertEquals(3, addressBookData.size());
     }
+
+    @Test
+    public void givenNewCityAndStateForContact_WhenUpdated_ShouldMatch() throws AddressBookException {
+        addressBookService.updateContactCityAndState("Sakshi","Pune", "Maharashtra");
+        boolean result = addressBookService.checkAddressBookInSyncWithDB("Sakshi");
+        Assertions.assertTrue(result);
+    }
 }
