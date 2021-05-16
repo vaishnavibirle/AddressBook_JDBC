@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class AddressBookServiceTest {
 
@@ -40,5 +41,23 @@ public class AddressBookServiceTest {
         List<AddressBookData> employeePayrollData = addressBookService.readAddressBookForDateRange(AddressBookService.IOService.DB_IO,
                 startDate, endDate);
         Assertions.assertEquals(3, employeePayrollData.size());
+    }
+
+    @Test
+    public void givenAddressBookDB_WhenRetrievedCountByState_ShouldReturnCountGroupedByState()
+            throws AddressBookException {
+        Map<String, Integer> count = addressBookService.countContactsByState(AddressBookService.IOService.DB_IO, "State");
+        Assertions.assertEquals(1, count.get("AndhraPradesh"), 0);
+        Assertions.assertEquals(1, count.get("Telangana"), 0);
+        Assertions.assertEquals(1, count.get("Karnataka"), 0);
+    }
+
+    @Test
+    public void givenAddressBookDB_WhenRetrievedCountByCity_ShouldReturnCountGroupedByCity()
+            throws AddressBookException {
+        Map<String, Integer> count = addressBookService.countContactsByCity(AddressBookService.IOService.DB_IO, "City");
+        Assertions.assertEquals(1, count.get("Ponnur"), 0);
+        Assertions.assertEquals(1, count.get("Mysore"), 0);
+        Assertions.assertEquals(1, count.get("Hyderabad"), 0);
     }
 }
